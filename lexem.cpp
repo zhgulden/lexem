@@ -7,17 +7,17 @@
 
 #define DEBUG 1
 
-std::map<std::string, Variable *> varTable;
-
+	//************************
 enum TYPE {
 	NONE_TYPE,
 	NUMBER_TYPE, 
-	VARIABLE_TYPE, 
-	OPERATION_TYPE, 
+	VARIABLE_TYPE,
+ 	OPERATION_TYPE, 
 	LBRACKET_TYPE, 
 	RBRACKET_TYPE
 };
 
+	//************************
 class Lexem {
   public:
   	Lexem();
@@ -37,6 +37,7 @@ class Number : public Lexem {
   	TYPE getType();
 };
 
+	//************************
 Number::Number() {
 	if (DEBUG == 1) {
 		std::cout << "Number default" << std::endl;
@@ -59,7 +60,7 @@ TYPE Number::getType() {
 	return NUMBER_TYPE;
 }
 
-
+	//************************
 enum OPERATOR {
 	LBRACKET, RBRACKET,
 	ASSIGN,
@@ -195,6 +196,7 @@ void Oper::print() {
 	}
 }
 
+	//****************************
 class Variable : public Lexem {
 	int value;
 	std::string name;
@@ -202,7 +204,6 @@ class Variable : public Lexem {
   	Variable();
   	Variable(std::string name);
   	Variable(std::string name, int value);
-  	//void print();
   	TYPE getType();
 };
 
@@ -221,6 +222,7 @@ TYPE Variable::getType() {
 	return VARIABLE_TYPE;
 }
 
+	//*********************
 void printVector(std::vector <Lexem *> &v) {
 	std::cout << "The infix vector elements are : ";
 	for(auto ptr: v) {
@@ -229,6 +231,17 @@ void printVector(std::vector <Lexem *> &v) {
 	std::cout << std::endl;
 }
 
+void print_stack(std::stack<Lexem *> & old_st) {
+	std::stack<Lexem *> st = old_st;
+	std::cout << "Stack: ";
+	while (!st.empty()) {
+		st.top()->print();
+		st.pop();
+	}
+	std::cout << std::endl;
+}
+
+	//**********************
 bool isoperation(char ch) {
 	if (ch == '+' || ch == '-' || ch == '*' || ch == '/' ||
 		ch == '%' || ch == '(' || ch == ')') {
@@ -238,18 +251,33 @@ bool isoperation(char ch) {
 }
 
 bool isassign(char ch) {
-	if (ch == ':') {
+	if (ch == '=') {
 		return true;
 	}
 	return false;
 }
 
+bool ispass(char ch) {
+	if (ch == ' ' || ch == '\t' || ch == '\n')
+		return true;
+	return false;
+}
+
+bool issymbol(char ch) {
+	if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') ||
+		(ch >= 0 && ch <= 9)) 
+		return true;
+	return false;
+}
+
+	//************************
 std::vector<Lexem *> parseLexem(std::string codeline) {
 	std::vector<Lexem *> infix;
 	codeline += ' ';
 	int value = 0;
+
 	for (long unsigned int i = 0; i < codeline.size();) {
-		if (codeline[i] == ' ' || codeline[i] == '\t' || codeline[i] == '\n') {
+		if (ispass(codeline[i])) {
 			i++;
 			continue;
 		} else if (isoperation(codeline[i])) {
@@ -263,27 +291,17 @@ std::vector<Lexem *> parseLexem(std::string codeline) {
 			}
 			infix.push_back(new Number(value));
 			value = 0;
-		} else if (isassign(codeline[i])) {
-
 		}
 	}
+	
 	if (DEBUG == 1) {
 		printVector(infix);
 	}
+	
 	return infix;
 }
 
-void print_stack(std::stack<Lexem *> & old_st)
-{
-	std::stack<Lexem *> st = old_st;
-	std::cout << "Stack: ";
-	while (!st.empty()) {
-		st.top()->print();
-		st.pop();
-	}
-	std::cout << std::endl;
-}
-
+	//***********************
 std::vector<Lexem *> builtPostfix (std::vector<Lexem *> infix) {
 	std::vector<Lexem *> postfix;
 	std::stack <Lexem *> stack;
@@ -314,18 +332,21 @@ std::vector<Lexem *> builtPostfix (std::vector<Lexem *> infix) {
 			stack.push(lexem);
 		}
 	}
-	//print_stack(stack);	
+
 	while (!stack.empty()) {
 		postfix.push_back(stack.top());
 		stack.pop();
 	}
+
 	if (DEBUG == 1) {	
 		printVector(postfix);
 		print_stack(stack);	
 	}
+
 	return postfix;
 } 
 
+	//*********************
 int performOperation(int leftNumber, int rightNumber, OPERATOR opertype) {
 	int val; 
 	if (opertype == PLUS) {
@@ -335,11 +356,17 @@ int performOperation(int leftNumber, int rightNumber, OPERATOR opertype) {
 	} else if (opertype == MULT) {
 		val = leftNumber * rightNumber;
 	} else if (opertype == DIV) {
-		val = leftNumber * rightNumber;
+		val = leftNumber / rightNumber;
 	} else if (opertype == MOD) {
-		val = leftNumber * rightNumber;
+		val = leftNumber % rightNumber;
+	} else if (opertype == XOR) {
+		val = leftNumber ^ rightNumber;
+	} else if (opertype == BITAND) {
+		val = leftNumber & rightNumber;
+	} else if (opertype == BITOR) {
+		val = leftNumber | rightNumber;
 	} else {
-		exit(0);		//потом убрать при дополнии
+		exit(0);	//потом убрать
 	}
 	return val;
 }
@@ -366,6 +393,7 @@ int evaluatePostfix(std::vector<Lexem *> postfix) {
 	return ((Number *)stack.top())->getValue();
 }
 
+	//*********************
 int main(void) {
 	std::string codeline;
 	std::vector<Lexem *> infix;
