@@ -197,13 +197,16 @@ void Oper::print() {
 }
 
 	//****************************
+std::map <std::string, int> VarTable;
+
 class Variable : public Lexem {
 	int value;
 	std::string name;
   public:
   	Variable();
-  	Variable(std::string name);
-  	Variable(std::string name, int value);
+  	Variable(std::string);
+  	void setValue(int);
+  	void print();
   	TYPE getType();
 };
 
@@ -213,9 +216,13 @@ Variable::Variable(std::string input_name) {
 	name = input_name;
 }
 
-Variable::Variable(std::string input_name, int input_value) {
-	value = input_value;
-	name = input_name;
+void Variable::setValue(int newValue) {
+    value = newValue;
+    VarTable[name] = value;
+}
+
+void Variable::print() {
+    std::cout << name;
 }
 
 TYPE Variable::getType() {
@@ -291,6 +298,16 @@ std::vector<Lexem *> parseLexem(std::string codeline) {
 			}
 			infix.push_back(new Number(value));
 			value = 0;
+		} else if (isalpha(codeline[i])) {
+			std::string name = "";
+			while ((i < codeline.size()) && isalpha(codeline[i])) {
+				if (codeline[i] == ' ' || codeline[i] == '\t') {
+					break;
+				}
+				name += codeline[i];
+				i++;
+			}
+			infix.push_back(new Variable(name));
 		}
 	}
 	
