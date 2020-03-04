@@ -14,7 +14,8 @@ enum TYPE {
 	VARIABLE_TYPE,
  	OPERATION_TYPE, 
 	LBRACKET_TYPE, 
-	RBRACKET_TYPE
+	RBRACKET_TYPE,
+	ASSIGN_TYPE
 };
 
 	//************************
@@ -116,7 +117,6 @@ class Oper : public Lexem {
   	Oper(char);
   	TYPE getType();
   	int getPriority();
-  	void print();
   	OPERATOR getOperType();
 };
 
@@ -133,24 +133,20 @@ OPERATOR Oper::getOperType() {
 Oper::Oper(char ch) {
 	if (ch == '+') {
 		opertype = PLUS;
-	}
-	else if (ch == '-') {
+	} else if (ch == '-') {
 		opertype = MINUS;
-	}
-	else if (ch == '*') {
+	} else if (ch == '*') {
 		opertype = MULT;
-	}
-	else if (ch == '/') {
+	} else if (ch == '/') {
 		opertype = DIV;
-	}
-	else if (ch == '%') {
+	} else if (ch == '%') {
 		opertype = MOD;
-	}
-	else if (ch == '(') {
+	} else if (ch == '(') {
 		opertype = LBRACKET;
-	}
-	else if (ch == ')') {
+	} else if (ch == ')') {
 		opertype = RBRACKET;
+	} else if (ch == '=') {
+		opertype = ASSIGN;
 	}
 }
 
@@ -165,35 +161,14 @@ TYPE Oper::getType(void) {
 	if (opertype == RBRACKET) {
 		return RBRACKET_TYPE;
 	}
+	if (opertype == ASSIGN) {
+		return ASSIGN_TYPE;
+	}
 	return NONE_TYPE;
 }
 
 int Oper::getPriority(void) {
 	return PRIORITY[opertype];
-}
-
-void Oper::print() {
-	if (opertype == PLUS) {
-		std::cout << '+';
-	}
-	else if (opertype == MINUS) {
-		std::cout << '-';
-	}
-	else if (opertype == LBRACKET) {
-		std::cout << '(';
-	}
-	else if (opertype == RBRACKET) {
-		std::cout << ')';
-	}
-	else if (opertype == MULT) {
-		std::cout << '*';
-	}
-	else if (opertype == DIV) {
-		std::cout << '/';
-	}
-	else if (opertype == MOD) {
-		std::cout << '%';
-	}
 }
 
 	//****************************
@@ -251,7 +226,7 @@ void print_stack(std::stack<Lexem *> & old_st) {
 	//**********************
 bool isoperation(char ch) {
 	if (ch == '+' || ch == '-' || ch == '*' || ch == '/' ||
-		ch == '%' || ch == '(' || ch == ')') {
+		ch == '%' || ch == '(' || ch == ')' || ch == '=') {
 		return true;
 	}
 	return false;
@@ -308,10 +283,14 @@ std::vector<Lexem *> parseLexem(std::string codeline) {
 				i++;
 			}
 			infix.push_back(new Variable(name));
+		} else if (isassign(codeline[i])) {
+			infix.push_back(new Oper(codeline[i]));
+			i++;
 		}
 	}
 	
 	if (DEBUG == 1) {
+		std::cout << "INFIX:     ";
 		printVector(infix);
 	}
 	
@@ -324,7 +303,7 @@ std::vector<Lexem *> builtPostfix (std::vector<Lexem *> infix) {
 	std::stack <Lexem *> stack;
 	
 	for (auto lexem: infix) {
-		if (lexem -> getType() == NUMBER_TYPE) {
+		if (lexem -> getType() == NUMBER_TYPE  || lexem -> getType() == VARIABLE_TYPE) {
 			postfix.push_back(lexem);
 		} else if (!stack.empty()) {
 			if (((Oper *)lexem)->getPriority() == LBRACKET) {
@@ -333,7 +312,6 @@ std::vector<Lexem *> builtPostfix (std::vector<Lexem *> infix) {
 				while (stack.top()->getType() != LBRACKET_TYPE) {
 					postfix.push_back(stack.top());
 					stack.pop();
-					stack.pop(); //lBRACKET add
 				}
 				stack.pop();
 			} else if (stack.top()->getType() != LBRACKET_TYPE && ((Oper *)stack.top())->getPriority() >= ((Oper *)lexem)->getPriority()) {
@@ -342,6 +320,8 @@ std::vector<Lexem *> builtPostfix (std::vector<Lexem *> infix) {
 					stack.pop();
 				}
 				//stack.push(lexem); //RBRACKET delete
+			} else if (lexem -> getType() == ASSIGN_TYPE && stack.top() -> getType() == ASSIGN_TYPE) {
+				stack.push(lexem);
 			} else {
 				stack.push(lexem); 
 			}
@@ -349,13 +329,13 @@ std::vector<Lexem *> builtPostfix (std::vector<Lexem *> infix) {
 			stack.push(lexem);
 		}
 	}
-
 	while (!stack.empty()) {
 		postfix.push_back(stack.top());
 		stack.pop();
 	}
 
 	if (DEBUG == 1) {	
+		std::cout << "POSTFIX:  ";
 		printVector(postfix);
 		print_stack(stack);	
 	}
