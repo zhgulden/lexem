@@ -13,3 +13,10 @@
 <li> Number
 <li> Oper
 <li> Variables
+
+## Как скомпилировать?
+`g++ -o lexem lexem.cpp -Wall -Werror -std=c++17
+
+## Как запустить?
+`./lexem
+
