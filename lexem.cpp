@@ -7,7 +7,6 @@
 
 #define DEBUG 1
 
-	//************************
 enum TYPE {
 	NONE_TYPE,
 	NUMBER_TYPE, 
@@ -18,7 +17,6 @@ enum TYPE {
 	ASSIGN_TYPE
 };
 
-	//************************
 class Lexem {
   public:
   	Lexem();
@@ -38,7 +36,6 @@ class Number : public Lexem {
   	TYPE getType();
 };
 
-	//************************
 Number::Number() {
 	if (DEBUG == 1) {
 		std::cout << "Number default" << std::endl;
@@ -61,7 +58,6 @@ TYPE Number::getType() {
 	return NUMBER_TYPE;
 }
 
-	//************************
 enum OPERATOR {
 	LBRACKET, RBRACKET,
 	ASSIGN,
@@ -198,7 +194,6 @@ int Oper::getPriority(void) {
 	return PRIORITY[opertype];
 }
 
-	//****************************
 std::map <std::string, int> VarTable;
 
 class Variable : public Lexem {
@@ -231,7 +226,6 @@ TYPE Variable::getType() {
 	return VARIABLE_TYPE;
 }
 
-	//*********************
 void printVector(std::vector <Lexem *> &v) {
 	std::cout << "Vector elements are : ";
 	for(auto ptr: v) {
@@ -250,7 +244,6 @@ void print_stack(std::stack<Lexem *> & old_st) {
 	std::cout << std::endl;
 }
 
-	//**********************
 bool isoperation(char ch) {
 	if (ch == '+' || ch == '-' || ch == '*' || ch == '/' ||
 		ch == '%' || ch == '(' || ch == ')') {
@@ -279,7 +272,6 @@ bool issymbol(char ch) {
 	return false;
 }
 
-	//************************
 std::vector<Lexem *> parseLexem(std::string codeline) {
 	std::vector<Lexem *> infix;
 	codeline += ' ';
@@ -325,7 +317,6 @@ std::vector<Lexem *> parseLexem(std::string codeline) {
 	return infix;
 }
 
-	//***********************
 std::vector<Lexem *> builtPostfix (std::vector<Lexem *> infix) {
 	std::vector<Lexem *> postfix;
 	std::stack <Lexem *> stack;
@@ -371,7 +362,6 @@ std::vector<Lexem *> builtPostfix (std::vector<Lexem *> infix) {
 	return postfix;
 } 
 
-	//*********************
 Lexem *performOperation(Lexem *leftValue, Lexem *rightValue, OPERATOR opertype) {
 	Lexem *val; 
 	int leftNumber = ((Number *)leftValue)->getValue();
@@ -420,7 +410,6 @@ int evaluatePostfix(std::vector<Lexem *> postfix) {
 	return ((Number *)stack.top())->getValue();
 }
 
-	//*********************
 int main(void) {
 	std::string codeline;
 	std::vector<Lexem *> infix;
