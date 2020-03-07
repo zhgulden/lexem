@@ -8,10 +8,8 @@
 
 ## Классы:
 <ul>
-<li> Lexem <\li>
+<li> Lexem
 <ul>
-<li> Number <\li>
-<li> Oper <\li>
-<li> Variables <\li>
-<\ul>
-<\ul>
+<li> Number
+<li> Oper
+<li> Variables
