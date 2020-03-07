@@ -377,7 +377,7 @@ Lexem *performOperation(Lexem *leftValue, Lexem *rightValue, OPERATOR opertype) 
 	} else if (opertype == MOD) {
 		val = new Number(leftNumber % rightNumber);
 	} else if (opertype == XOR) {
-		val = new Number(leftNumber ^ rightNumber);
+		val = new Number((leftNumber + rightNumber) % 2);
 	} else if (opertype == BITAND) {
 		val = new Number(leftNumber & rightNumber);
 	} else if (opertype == BITOR) {
@@ -404,7 +404,9 @@ int evaluatePostfix(std::vector<Lexem *> postfix) {
 		} else if (lexem->getType() == NUMBER_TYPE) {
 			stack.push(lexem);
 		} else {
-			//std::cout << result << std::endl;
+			if (DEBUG == 1) {
+				std::cout << result << std::endl;
+			}
 		}
 	}
 	return ((Number *)stack.top())->getValue();
