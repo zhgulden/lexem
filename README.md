@@ -17,7 +17,7 @@
 </ul>
 
 ## Как скомпилировать?
-` g++ -o lexem lexem.cpp -Wall -Werror -std=c++17`
+` make`
 
 ## Как запустить?
 ` ./lexem`
