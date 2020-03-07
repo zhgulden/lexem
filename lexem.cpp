@@ -259,12 +259,16 @@ bool isassign(char ch) {
 	return false;
 }
 
+// is_space is_whitespace
+// std::isspace(ch)
+// return (ch == ' ' || ch == '\t' || ch == '\n')
 bool ispass(char ch) {
 	if (ch == ' ' || ch == '\t' || ch == '\n')
 		return true;
 	return false;
 }
 
+// std::isalnum(ch) ???
 bool issymbol(char ch) {
 	if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') ||
 		(ch >= 0 && ch <= 9)) 
