@@ -13,7 +13,7 @@
 <li> Number
 <li> Oper
 <li> Variables
-<\ul>
+</ul>
 
 ## Как скомпилировать?
 `g++ -o lexem lexem.cpp -Wall -Werror -std=c++17
