@@ -303,7 +303,6 @@ std::vector<Lexem *> parseLexem(std::string codeline) {
 			}
 			infix.push_back(new Variable(name));
 		} else if (isassign(codeline[i])) {
-			std::cout << "IT IS ASSIGN!!!!" << std::endl; 
 			infix.push_back(new Oper(codeline[i]));
 			i++;
 		}
