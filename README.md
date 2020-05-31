@@ -1,18 +1,7 @@
-# Интерпретатор
+#  Definitions and Basics
 
-## Что включает в себя программа?
-<ol>
-<li> Арифметические операции
-<li> Переменные
-<li> Логические и битовые операции
+An interpreter is a computer program that directly executes instructions written in a programming or scripting language, without requiring them previously to have been compiled into a machine language program. An interpreter generally uses one of the following strategies for program execution:
 
-
-## Классы:
-<ul>
-<li> Lexem
-<ul>
-<li> Number
-<li> Oper
-<li> Variables
-</ul>
-</ul>
+<li> Parse the source code and perform its behavior directly;
+<li> Translate source code into some efficient intermediate representation and immediately execute this;
+<li> Explicitly execute stored precompiled code made by a compiler which is part of the interpreter system.
