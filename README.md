@@ -4,7 +4,7 @@
 
 # <a name="basics"></a> Definitions and Basics
 
-***An interpreter*** is a computer program that directly executes instructions written in a programming or scripting language, without requiring them previously to have been compiled into a machine language program. 
+**An interpreter** is a computer program that directly executes instructions written in a programming or scripting language, without requiring them previously to have been compiled into a machine language program. 
 
 An interpreter generally uses one of the following strategies for program execution:
 
