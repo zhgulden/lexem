@@ -35,9 +35,9 @@ The language defines six binary arithmetic operations, which are presented in th
 
 ### Example:
 
-Input:
+**Input:**
 ``` ((123 + 24) / (34 % 12)) - (2 * 10) ```
 
-Ouptut:
+**Output:**
 ``` -6 ```
 
