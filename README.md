@@ -7,8 +7,7 @@
    * [Bitwise AND](#bitand)
    * [Bitwise OR](#bitor)
    * [Bitwise XOR](#bitxor)
-   * [Shift left](#left)
-   * [Shift right](#right)
+   * [Shift left and Shift right](#leftright)
 
 # <a name="basics"></a> Definitions and Basics
 
@@ -43,8 +42,11 @@ Operations for the four basic arithmetic operations — addition, subtraction, m
 
 Examples of the remainder of division operation: 
 ``` 14 % 4 = 3 ```
+
 ``` 101 % 10 = 1 ```
+
 ``` 44 % 2 = 0 ```
+
 ``` 34 % 12 = 6 ```
 
 #### Example:
@@ -62,29 +64,35 @@ On simple processors, typically, bitwise operations are substantially faster tha
 
 The language defines five bitwise arithmetic operations, which are presented in the table below:
 
-|     Operation name     |   Operation symbol   |
-| ---------------------- | -------------------- |
-|       bitwise and      |          `&`         |
-|       bitwise or       |          `|`         |
-|       bitwise xor      |          `^`         |
-|       shift right      |          `>>`        |
-|       shift left       |          `<<`        |
+|     Operation name     |   Operation symbol     |
+| ---------------------- | ---------------------- |
+|       bitwise and      |          `&`           |
+|       bitwise or       |          ` | `         |
+|       bitwise xor      |          `^`           |
+|       shift right      |          `>>`          |
+|       shift left       |          `<<`          |
 
 ### <a name="bitand"></a> Bitwise AND
 
 A bitwise AND is a binary operation that takes two equal-length binary representations and performs the logical AND operation on each pair of the corresponding bits, which is equivalent to multiplying them. Thus, if both bits in the compared position are 1, the bit in the resulting binary representation is 1 (1 × 1 = 1); otherwise, the result is 0 (1 × 0 = 0 and 0 × 0 = 0)
 
 #### Examples:
-Input: ``` 5 & 3 ```
-Output: ``` 1 ```
+Input: 
+``` 5 & 3 ```
+
+Output: 
+``` 1 ```
 
 |          |   010**1**   | decimal 5 |
 | -------- | ------------ | --------- |
 |   `&`    |   001**1**   | decimal 3 |
 |   `=`    |   000**1**   | decimal 1 |
 
-Input: ``` 6 & 1 ```
-Output: ``` 0 ```
+Input: 
+``` 6 & 1 ```
+
+Output: 
+``` 0 ```
 
 |          |   0**11**0   | decimal 6 |
 | -------- | ------------ | --------- |
@@ -96,16 +104,22 @@ Output: ``` 0 ```
 A bitwise OR is a binary operation that takes two bit patterns of equal length and performs the logical inclusive OR operation on each pair of corresponding bits. The result in each position is 0 if both bits are 0, while otherwise the result is 1. 
 
 #### Examples:
-Input: ``` 5 & 3 ```
-Output: ``` 7 ```
+Input: 
+``` 5 & 3 ```
+
+Output: 
+``` 7 ```
 
 |          |   010**1**   | decimal 5 |
 | -------- | ------------ | --------- |
 |   `&`    |   001**1**   | decimal 3 |
 |   `=`    |   0**111**   | decimal 7 |
 
-Input: ``` 6 & 1 ```
-Output: ``` 0 ```
+Input: 
+``` 6 & 1 ```
+
+Output: 
+``` 0 ```
 
 |          |   0**11**0   | decimal 6 |
 | -------- | ------------ | --------- |
@@ -117,23 +131,60 @@ Output: ``` 0 ```
 A bitwise XOR is a binary operation that takes two bit patterns of equal length and performs the logical exclusive OR operation on each pair of corresponding bits. The result in each position is 1 if only one of the bits is 1, but will be 0 if both are 0 or both are 1. In this we perform the comparison of two bits, being 1 if the two bits are different, and 0 if they are the same.
 
 #### Examples:
-Input: ``` 5 & 3 ```
-Output: ``` 6 ```
+Input: 
+``` 5 & 3 ```
+
+Output: 
+``` 6 ```
 
 |          |   010**1**   | decimal 5 |
 | -------- | ------------ | --------- |
 |   `&`    |   001**1**   | decimal 3 |
 |   `=`    |   0**11**0   | decimal 6 |
 
-Input: ``` 2 & 10 ```
-Output: ``` 8 ```
+Input: 
+``` 2 & 10 ```
+
+Output: 
+``` 8 ```
 
 |          |   00**1**0      | decimal 2  |
 | -------- | --------------- | ---------- |
 |   `&`    |   **1**0**1**0  | decimal 10 |
 |   `=`    |   **1**000      | decimal 8  |
 
+### <a name="leftright"></a> Shift Left and Shift Right
 
+In a shift, zeros are shifted in to replace the discarded bits. Therefore, the logical and arithmetic left-shifts are exactly the same.
+
+However, as the logical right-shift inserts value 0 bits into the most significant bit, instead of copying the sign bit, it is ideal for unsigned binary numbers, while the arithmetic right-shift is ideal for signed two's complement binary numbers
+
+#### Examples:
+Input:
+``` 5 >> 1 ```
+
+Output:
+``` 2 ```
+
+```
+0101 >> 1  →  0010
+
+0101 is 5
+0010 is 2
+```
+
+Input:
+``` 2 >> 2 ```
+
+Output:
+``` 8 ```
+
+```
+0010 >> 2  →  1000
+
+0010 is 2
+1000 is 8
+```
 
 
 
