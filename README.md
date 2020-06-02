@@ -25,6 +25,7 @@ The operations for performing basic arithmetic operations are binary, since they
 
 The language defines six binary arithmetic operations, which are presented in the table below:
 |     Operation name     |   Operation symbol   |
+| ---------------------- | -------------------- |
 |          plus          |          '+'         |
 |          minus         |          '-'         |
 |     multiplication     |          '*'         |
