@@ -10,6 +10,8 @@
    * [Shift left and Shift right](#leftright)
 * [Assignment](#assign)
  * [How map container works?](#map)
+* [How to run programs?](#run)
+* [Questions and suggestions](#qa)
 
 # <a name="basics"></a> Definitions and Basics
 
@@ -20,6 +22,12 @@ An interpreter generally uses one of the following strategies for program execut
 <li> Parse the source code and perform its behavior directly;
 <li> Translate source code into some efficient intermediate representation and immediately execute this;
 <li> Explicitly execute stored precompiled code made by a compiler which is part of the interpreter system.
+
+#  <a name="purpose"></a> Purpose
+
+The pupose is to write a program that executes instructions written in a high-level language in interactive mode.
+
+**Interactive mode** is a command line shell which gives immediate feedback for each statement, while running previously fed statements in active memory. As new lines are fed into the interpreter, the fed program is evaluated both in part and in whole. 
 
 # <a name="arithmetics"></a> Arithmetic operations
 
@@ -213,9 +221,27 @@ Map containers are generally slower than unordered_map containers to access indi
 
 Maps are typically implemented as binary search trees.
 
+#  <a name="depend"></a> Dependencies
+
+The program was written in the C ++ programming language, so for its compilation and further launch, you must install the **g++ compiler**
+
+### Debian/Ubuntu/Mint
+
+``` sudo apt-get update ```
+
+``` sudo apt-get install g++ ```
+
+### Fedora/CentOS
+
+``` sudo dnf update ```
+
+``` sudo dnf install g++ ```
+
+# <a name="run"></a> How to run programs?
 
 
+# <a name="qa"></a> Questions and suggestions
 
-
+If you have any questions or suggestions, write to the email zhanmukanbetova.gulden@gmail.com
 
 
