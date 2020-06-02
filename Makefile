@@ -1,2 +1,2 @@
 all:
-	g++ -o lexem lexem.cpp -Wall -Werror -std=c++17
+	g++ -std=c++11 usr/main.cpp src/lexem.cpp \-I headers/ -o bin/main -Wall -Werror
