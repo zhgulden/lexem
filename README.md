@@ -25,12 +25,19 @@ The operations for performing basic arithmetic operations are binary, since they
 
 The language defines six binary arithmetic operations, which are presented in the table below:
 
-                          |     Operation name     |   Operation symbol   |
-                          | ---------------------- | -------------------- |
-                          |          plus          |           +          |
-                          |          minus         |           -          |
-                          |     multiplication     |           *          |
-                          |         division       |           /          |
-                          | division with remainder|           %          |
+|     Operation name     |   Operation symbol   |
+| ---------------------- | -------------------- |
+|          plus          |          `+`         |
+|          minus         |          `-`         |
+|     multiplication     |          `*`         |
+|         division       |          `/`         |
+| division with remainder|          `%`         |
 
+### Example:
+
+Input:
+``` ((123 + 24) / (34 % 12)) - (2 * 10) ```
+
+Ouptut:
+``` -6 ```
 
