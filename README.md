@@ -8,6 +8,8 @@
    * [Bitwise OR](#bitor)
    * [Bitwise XOR](#bitxor)
    * [Shift left and Shift right](#leftright)
+* [Assignment](#assign)
+ * [How map container works?](#map)
 
 # <a name="basics"></a> Definitions and Basics
 
@@ -185,6 +187,32 @@ Output:
 0010 is 2
 1000 is 8
 ```
+
+# <a name="assign"></a> Assignment
+
+**An assignment** statement sets and/or re-sets the value stored in the storage location(s) denoted by a variable name; in other words, it copies a value into the variable.
+
+**Variables** are containers for values. It is possible to put a value into a variable and later replace it with a new one. An assignment operation modifies the current state of the executing program. Consequently, assignment is dependent on the concept of variables. In an assignment:
+
+* The expression is evaluated in the current state of the program.
+* The variable is assigned the computed value, replacing the prior value of that variable.
+
+The name of the variables and their values are stored in the program using the `std::map<std::string, int> varTable;`.
+
+## <a name="map"></a> How map container works?
+
+Maps are associative containers that store elements formed by a combination of a key value and a mapped value, following a specific order.
+
+In a map, the key values are generally used to sort and uniquely identify the elements, while the mapped values store the content associated to this key. The types of key and mapped value may differ, and are grouped together in member type `value_type` , which is a pair type combining both:
+
+```typedef pair<const Key, T> value_type;```
+
+Internally, the elements in a map are always sorted by its key following a specific strict weak ordering criterion indicated by its internal comparison object.
+
+Map containers are generally slower than unordered_map containers to access individual elements by their key, but they allow the direct iteration on subsets based on their order. The mapped values in a map can be accessed directly by their corresponding key using the bracket operator.
+
+Maps are typically implemented as binary search trees.
+
 
 
 
