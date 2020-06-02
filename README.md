@@ -10,7 +10,7 @@
    * [Shift left and Shift right](#leftright)
 * [Assignment](#assign)
  * [How map container works?](#map)
-* [How to compile program?](#run)
+* [How to run program?](#run)
 * [Questions and suggestions](#qa)
 
 # <a name="basics"></a> Definitions and Basics
@@ -237,10 +237,15 @@ The program was written in the C ++ programming language, so for its compilation
 
 ``` sudo dnf install g++ ```
 
-# <a name="run"></a> How to compile program?
+# <a name="run"></a> How to run program?
 
+First you need to compile the program using the Makefile:
 ```
 make
+```
+Run program:
+```
+./bin/main
 ```
 
 # <a name="qa"></a> Questions and suggestions
